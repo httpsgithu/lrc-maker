@@ -13,11 +13,11 @@
     color: var(--theme-color);
     background-color: var(--semi-black-color);
     box-shadow: 0 1px 1px var(--theme-color);
-    animation: slideInDown var(--animation-duration) ease-in-out forwards;
+    animation: slide-in-down var(--animation-duration) ease-in-out forwards;
     user-select: none;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .app-header {
         padding: 0 4px;
     }
@@ -37,7 +37,7 @@
     display: inline-flex;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
     .app-title-text {
         display: inline-flex;
     }
@@ -62,7 +62,7 @@
 .app-tab {
     position: relative;
     transform: translateY(-100%);
-    animation-name: slideInDown;
+    animation-name: slide-in-down;
     animation-duration: var(--animation-durationx2);
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
@@ -110,8 +110,7 @@
     content: "";
 }
 
-.app-tab:target::before,
-.app-tab:hover::before {
+.app-tab:target::before, .app-tab:hover::before {
     transform: scaleY(1);
 }
 
@@ -123,8 +122,7 @@
     transform: scaleY(1);
 }
 
-.app-title-svg > svg,
-.app-tab > svg {
+.app-title-svg > svg, .app-tab > svg {
     width: 30px;
     height: 30px;
     margin: 0;

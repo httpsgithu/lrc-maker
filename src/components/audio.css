@@ -29,8 +29,7 @@ audio::-webkit-media-controls-enclosure {
     user-select: none;
 }
 
-.lrc-audio > button,
-.lrc-audio > span {
+.lrc-audio > button, .lrc-audio > span {
     flex: 0 0 auto;
 }
 
@@ -42,15 +41,14 @@ audio::-webkit-media-controls-enclosure {
     margin: 0 5px;
 }
 
-.slider > progress,
-.slider > input {
+.slider > progress, .slider > input {
     position: absolute;
     right: 0;
     left: 0;
     width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .timeline-slider {
         --slider-height: 4px;
 
@@ -167,8 +165,7 @@ input[type="range"]:hover::-moz-range-thumb {
     box-shadow: 0 0 4px var(--white);
 }
 
-input[type="range"]::-ms-fill-upper,
-input[type="range"]::-ms-fill-lower {
+input[type="range"]::-ms-fill-upper, input[type="range"]::-ms-fill-lower {
     background-color: transparent;
 }
 

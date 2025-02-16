@@ -1,9 +1,6 @@
 .dialog {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     z-index: 1000;
     display: none;
     margin: auto;
@@ -12,7 +9,7 @@
 
 .dialog[open] {
     display: block;
-    animation: dialogSlideIn var(--animation-duration) var(--animation-out-back);
+    animation: dialog-slide-in var(--animation-duration) var(--animation-out-back);
 }
 
 .dialog-close {
@@ -36,20 +33,14 @@
 
 .dialog-close::before {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     z-index: -1;
     content: "";
 }
 
 .dialog-close > svg {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     width: 36px;
     height: 36px;
     margin: auto;
@@ -115,8 +106,7 @@
     visibility: visible;
 }
 
-.audio-input-tip,
-.audio-input-form {
+.audio-input-tip, .audio-input-form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -145,8 +135,8 @@
     appearance: none;
 }
 
-@keyframes dialogSlideIn {
-    from {
+@keyframes dialog-slide-in {
+    0% {
         transform: translate(0, 100%);
         opacity: 0;
     }

@@ -1,3 +1,4 @@
+import { guard } from "../hooks/useLrc.js";
 import { createPubSub } from "./pubsub.js";
 
 interface IAudioRef extends React.RefObject<HTMLAudioElement> {
@@ -7,7 +8,11 @@ interface IAudioRef extends React.RefObject<HTMLAudioElement> {
     playbackRate: number;
     currentTime: number;
     toggle: () => void;
-    step: (ev: React.MouseEvent | React.KeyboardEvent | MouseEvent | KeyboardEvent, value: number) => void;
+    step: (
+        ev: React.MouseEvent | React.KeyboardEvent | MouseEvent | KeyboardEvent,
+        value: number,
+        target?: number,
+    ) => number;
 }
 
 export const audioRef: IAudioRef = {
@@ -43,19 +48,23 @@ export const audioRef: IAudioRef = {
         }
     },
 
-    step(ev, value) {
+    step(ev, value, target): number {
+        if (target === undefined) {
+            target = this.currentTime;
+        }
+
         if (ev.altKey) {
             value *= 0.2;
         }
         if (ev.shiftKey) {
             value *= 0.5;
         }
-        this.currentTime += value;
+        return (this.currentTime = guard(value + target, 0, this.duration));
     },
 
     toggle() {
         if (this.current?.duration) {
-            this.current.paused ? this.current.play() : this.current.pause();
+            void (this.current.paused ? this.current.play() : this.current.pause());
         }
     },
 };
@@ -68,17 +77,17 @@ export const enum AudioActionType {
 
 export type AudioState =
     | {
-          type: AudioActionType.pause;
-          payload: boolean;
-      }
+        type: AudioActionType.pause;
+        payload: boolean;
+    }
     | {
-          type: AudioActionType.getDuration;
-          payload: number;
-      }
+        type: AudioActionType.getDuration;
+        payload: number;
+    }
     | {
-          type: AudioActionType.rateChange;
-          payload: number;
-      };
+        type: AudioActionType.rateChange;
+        payload: number;
+    };
 
 export const audioStatePubSub = createPubSub<AudioState>();
 export const currentTimePubSub = createPubSub<number>();
